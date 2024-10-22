@@ -2,11 +2,49 @@
  * @Author: leelongxi leelongxi@foxmail.com
  * @Date: 2024-10-22 15:05:26
  * @LastEditors: leelongxi leelongxi@foxmail.com
- * @LastEditTime: 2024-10-22 15:09:54
+ * @LastEditTime: 2024-10-22 16:17:22
  * @FilePath: /openspace_web3modal/app/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
+'use client'
+
 import Image from "next/image";
+import { useAppKit } from '@reown/appkit/react'
+import { useReadContract } from 'wagmi'
+import ERC721ABI from '@openzeppelin/contracts/build/contracts/ERC721.json';
+
+function ConnectWalletButton() {
+  const { open } = useAppKit()
+  return (
+    <>
+    <button onClick={() => open()}>Open Connect Modal</button>
+    <button onClick={() => open({ view: 'Networks' })}>Open Network Modal</button>
+  </>
+  )
+}
+
+function ReactNFT() {
+  const { data: owner, isError: ownerError } = useReadContract({
+    abi: ERC721ABI.abi,
+    address: '0x0483b0dfc6c78062b9e999a82ffb795925381415',
+    functionName: 'ownerOf',
+    args: [1],
+  })
+  const { data: tokenURI, isError: tokenURIError } = useReadContract({
+    address: '0x0483b0dfc6c78062b9e999a82ffb795925381415',
+    abi: ERC721ABI.abi,
+    functionName: 'tokenURI',
+    args: [1],
+  });
+  if (ownerError || tokenURIError) return <div>Failed to fetch data</div>;
+  return (
+    <div>
+      <p>Owner of token: {owner as string}</p>
+      <p>Metadata URI of token: {tokenURI as string}</p>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -20,6 +58,8 @@ export default function Home() {
           height={38}
           priority
         />
+        <ConnectWalletButton />
+        <ReactNFT />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       </footer>
