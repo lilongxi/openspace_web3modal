@@ -2,7 +2,7 @@
  * @Author: leelongxi leelongxi@foxmail.com
  * @Date: 2024-10-22 15:05:26
  * @LastEditors: leelongxi leelongxi@foxmail.com
- * @LastEditTime: 2024-10-22 16:19:07
+ * @LastEditTime: 2024-10-22 16:20:41
  * @FilePath: /openspace_web3modal/app/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -25,17 +25,18 @@ function ConnectWalletButton() {
 }
 
 function ReactNFT() {
-  const { data: owner, isError: ownerError } = useReadContract({
+  const nftProp: Record<string, unknown> = {
     abi: ERC721ABI.abi,
     address: '0x0483b0dfc6c78062b9e999a82ffb795925381415',
-    functionName: 'ownerOf',
     args: [1],
+  }
+  const { data: owner, isError: ownerError } = useReadContract({
+   ...nftProp,
+    functionName: 'ownerOf',
   })
   const { data: tokenURI, isError: tokenURIError } = useReadContract({
-    address: '0x0483b0dfc6c78062b9e999a82ffb795925381415',
-    abi: ERC721ABI.abi,
+   ...nftProp,
     functionName: 'tokenURI',
-    args: [1],
   });
   if (ownerError || tokenURIError) return <div>Failed to fetch data</div>;
   return (
