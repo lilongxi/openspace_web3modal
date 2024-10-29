@@ -2,7 +2,7 @@
  * @Author: leelongxi leelongxi@foxmail.com
  * @Date: 2024-10-22 15:05:26
  * @LastEditors: leelongxi leelongxi@foxmail.com
- * @LastEditTime: 2024-10-22 16:20:41
+ * @LastEditTime: 2024-10-29 15:30:20
  * @FilePath: /openspace_web3modal/app/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useAppKit } from '@reown/appkit/react'
 import { useReadContract } from 'wagmi'
 import ERC721ABI from '@openzeppelin/contracts/build/contracts/ERC721.json';
+import UsdtTransferWatchPannel from "./UsdtTransferWatchPannel";
 
 function ConnectWalletButton() {
   const { open } = useAppKit()
@@ -64,6 +65,7 @@ export default function Home() {
         />
         <ConnectWalletButton />
         <ReactNFT />
+        <UsdtTransferWatchPannel />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       </footer>
