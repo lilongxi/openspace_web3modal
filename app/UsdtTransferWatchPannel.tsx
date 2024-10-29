@@ -2,7 +2,7 @@
  * @Author: leelongxi leelongxi@foxmail.com
  * @Date: 2024-10-29 15:21:26
  * @LastEditors: leelongxi leelongxi@foxmail.com
- * @LastEditTime: 2024-10-29 15:52:46
+ * @LastEditTime: 2024-10-29 15:56:02
  * @FilePath: /openspace_web3modal/app/UsdtWatchPannel.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -60,7 +60,12 @@ export default function UsdtTransferWatchPannel() {
                 value: value ? Number(formatUnits(value, 6)).toFixed(5) : '0.00000' // 处理 value 可能为 undefined 的情况
             } as ITransferProp;
         });
-        setTransfers(newTransfers);
+        setTransfers(oldTransfers => {
+            return [
+                ...newTransfers,
+                ...oldTransfers
+            ]
+        });
     }
 
     async function subscribeToEvent() {
@@ -84,11 +89,13 @@ export default function UsdtTransferWatchPannel() {
             <p>区块高度: {block?.number}</p>
             <p>区块哈希值: {block?.hash}</p>
             <h2>最新 USDT 转账记录</h2>
+            <div style={{ height: '400px', overflowY: 'scroll' }}>
             {transfers.map((transfer, index) => (
                 <div key={index}>
                     <p>在 {transfer.blockNumber} 区块 {transfer.transactionHash} 交易中从 {transfer?.from} 转账 {transfer.value} USDT 到 {transfer.to}</p>
                 </div>
             ))}
+            </div>
         </div>
     )
 }
