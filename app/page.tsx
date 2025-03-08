@@ -2,13 +2,12 @@
  * @Author: leelongxi leelongxi@foxmail.com
  * @Date: 2024-10-22 15:05:26
  * @LastEditors: leelongxi leelongxi@foxmail.com
- * @LastEditTime: 2024-11-01 17:24:43
+ * @LastEditTime: 2024-11-02 10:54:54
  * @FilePath: /openspace_web3modal/app/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
 'use client'
-
 
 export default function Home() {
   return (
@@ -16,6 +15,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        NFT购买 出售 租赁
       </footer>
     </div>
   );
